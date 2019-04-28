@@ -7,43 +7,75 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View,TextInput,Button,Alert} from 'react-native';
+
+
+export class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            pwd: ''
+        }
+    }
+    onLogin=()=>{
+        Alert.alert("login",JSON.stringify(this.state))
+    }
+    onChange=(v,w)=>{
+        this.setState({
+            [w]:v
+        })
+    }
+    render() {
+        return (
+            <View>
+                <Text>用户名</Text>
+
+                <TextInput onChangeText={(v)=>this.onChange(v,'name')} placeholder={"输入用户名"}
+                           style={{borderColor:'red',borderWidth:0.5}}
+                />
+
+                <Text>密码</Text>
+                <TextInput onChangeText={(v)=>this.onChange(v,'pwd')} placeholder={"输入密码"}/>
+                <Button title={"登录"} onPress={this.onLogin}/>
+            </View>
+        )
+    }
+
+}
+
 
 const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+    android:
+        'Double tap R on your keyboard to reload,\n' +
+        'Shake or press menu button for dev menu',
 });
 
 type Props = {};
 export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
+    render() {
+        return (
+             <Login/>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5,
+    },
 });
