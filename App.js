@@ -1,14 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,TextInput,Button,Alert} from 'react-native';
+import {createBottomTabNavigator,createAppContainer} from "react-navigation";
+import {Home} from "./components/home";
 
+export class Settings extends Component{
+    render(): React.ReactNode {
+        return (
+            <View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
+                <Text>settings</Text>
+            </View>
+        );
+    }
+}
 
 export class Login extends Component {
     constructor(props) {
@@ -44,38 +47,10 @@ export class Login extends Component {
 
 }
 
+const TabNavigator=createBottomTabNavigator({
+    主页:Home,
+    设置:Settings,
+    登录:Login
+})
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android:
-        'Double tap R on your keyboard to reload,\n' +
-        'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
-    render() {
-        return (
-             <Login/>
-        );
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
+export default createAppContainer(TabNavigator)
