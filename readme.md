@@ -12,3 +12,8 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+#生成apk
+配置keystore后,还需要执行
+$ cd android && ./gradlew assembleRelease
+才能生成可发布的apk

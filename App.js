@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,TextInput,Button,Alert} from 'react-native';
-import {createBottomTabNavigator,createAppContainer} from "react-navigation";
-import {Home} from "./components/home";
+import {createBottomTabNavigator,createStackNavigator,createAppContainer} from "react-navigation";
+import {Home,Detail} from "./components/home";
 
 export class Settings extends Component{
     render(): React.ReactNode {
@@ -47,10 +47,35 @@ export class Login extends Component {
 
 }
 
+let HomeStack=createStackNavigator({
+    Home:Home,
+    Detail:Detail
+},{
+    initialRouteName:"Home"
+});
+let SettingsStack=createStackNavigator({Settings})
+let LoginStack=createStackNavigator({Login})
+
+HomeStack.navigationOptions={
+    tabBarLabel:'主页'
+}
+SettingsStack.navigationOptions={
+    tabBarLabel:'设置'
+}
+LoginStack.navigationOptions={
+    tabBarLabel:'我的'
+}
+
 const TabNavigator=createBottomTabNavigator({
-    主页:Home,
-    设置:Settings,
-    登录:Login
+    HomeStack,
+    SettingsStack,
+    LoginStack
 })
 
-export default createAppContainer(TabNavigator)
+const AppContainer=createAppContainer(TabNavigator)
+
+export default class App1 extends React.Component{
+    render(): React.ReactNode {
+        return <AppContainer/>;
+    }
+}

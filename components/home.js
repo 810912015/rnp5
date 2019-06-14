@@ -1,12 +1,14 @@
 import React from "react";
-import {Text, View, FlatList, TouchableWithoutFeedback} from "react-native";
+import {Text, View, FlatList, TouchableWithoutFeedback,Button} from "react-native";
 import {WebView} from 'react-native-webview';
 
 export class QItem extends React.Component {
     render(): React.ReactNode {
         return (
             <TouchableWithoutFeedback onPress={()=>{
-                console.warn(this.props.q.item)
+                //console.warn(this.props.navigation)
+                this.props.navigation.navigate('Detail',
+                    {item:this.props.q.item})
             }}>
                 <View style={
                     {
@@ -16,6 +18,7 @@ export class QItem extends React.Component {
                         flex: 1
                     }
                 }>
+
                     <View style={{flex: 1, flexDirection: 'row'}}>
                         <Text style={{width: 30}}>{this.props.q.item.id}</Text>
                         <Text style={{width: 10}}>{this.props.q.item.level}</Text>
@@ -89,6 +92,9 @@ export function mergeArray(b, a, getKey) {
 }
 
 export class Home extends React.Component {
+    static navigationOptions={
+        headerTitle:<Text>试题列表</Text>
+    }
     constructor(props) {
         super(props)
         this.state = {
@@ -157,8 +163,19 @@ export class Home extends React.Component {
                           onEndReachedThreshold={0.2}
                           onRefresh={this.onRefresh}
                           keyExtractor={(item, index) => 'q' + item.id}
-                          renderItem={(item) => <QItem q={item}/>}/>
+                          renderItem={(item) => <QItem q={item} navigation={this.props.navigation}/>}/>
             </View>
+        );
+    }
+}
+
+export class Detail extends React.Component{
+    render(): React.ReactNode {
+        const item=this.props.navigation.getParam('item',{})
+        return (
+            <WebView style={{width: 800, height: 500}}
+                     source={{html: item.title}}
+            />
         );
     }
 }
