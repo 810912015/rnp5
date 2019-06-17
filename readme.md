@@ -17,3 +17,9 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 配置keystore后,还需要执行
 $ cd android && ./gradlew assembleRelease
 才能生成可发布的apk
+
+#使用的类库:(需要link)
+1.react-native-svc
+2.react-native-webview
+3.react-navigation
+4.react-native-splash-screen

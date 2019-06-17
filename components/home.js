@@ -75,7 +75,10 @@ export function mergeArray(b, a, getKey) {
 
     function contains(arr, el, fk) {
         for (let i = 0; i < arr.length; i++) {
-            if (fk(arr[i] === fk(el))) {
+            let id1=fk(arr[i]),id2=fk(el);
+
+            if (id1===id2) {
+
                 return true;
             }
         }
@@ -111,16 +114,23 @@ export class Home extends React.Component {
     }
 
     getData = (d) => {
+        if(this.state.busy) return;
         post({
             url: 'http://www.proglevel.com/question/all',
             data: d,
             start: () => this.setState({busy: true}),
-            end: () => this.setState({busy: false}),
+            end: () => {
+                this.setState({busy: false})
+                if(typeof d.end==='function'){
+                    d.end()
+                }
+            },
             success: (d) => {
                 if (!d || d.length === 0) {
                     this.setState({loadable: false})
                     return
                 }
+
                 let r = mergeArray(d, this.state.items, a => {
                     return a.id
                 });
@@ -150,10 +160,11 @@ export class Home extends React.Component {
     onEndReached = (e) => {
         if (!this.state.loadable || e.distanceFromEnd < 0) return;
         let d = this.calId();
-        this.getData(d)
+        this.getData({minId:d.minId,size:10})
     }
     onRefresh = () => {
-        this.getData({size: 10})
+        let mid=this.calId();
+        this.getData({maxId:mid.maxId,size: 10})
     }
 
     render(): React.ReactNode {

@@ -8,6 +8,7 @@ import Logo3 from './components/img/person.svg'
 import Logoa from './components/img/home-active.svg'
 import Logoa2 from './components/img/settings-active.svg'
 import Logoa3 from './components/img/person-active.svg'
+import SplashScreen from "react-native-splash-screen";
 
 export class Settings extends Component {
     render(): React.ReactNode {
@@ -126,6 +127,10 @@ const TabNavigator = createBottomTabNavigator({
 const AppContainer = createAppContainer(TabNavigator)
 
 export default class App1 extends React.Component {
+    componentDidMount(): void {
+        SplashScreen.hide();
+    }
+
     render(): React.ReactNode {
         return <AppContainer/>;
     }
