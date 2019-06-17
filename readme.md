@@ -22,4 +22,10 @@ $ cd android && ./gradlew assembleRelease
 1.react-native-svc
 2.react-native-webview
 3.react-navigation
-4.react-native-splash-screen
+4.react-native-splash-screen 
+  https://github.com/crazycodeboy/react-native-splash-screen
+
+#查看adb日志:
+zxf@zxfpc:~/Android/Sdk/platform-tools$ ./adb logcat
+
+
