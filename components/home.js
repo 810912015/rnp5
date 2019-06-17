@@ -1,6 +1,7 @@
 import React from "react";
 import {Text, View, FlatList, TouchableWithoutFeedback,Button} from "react-native";
 import {WebView} from 'react-native-webview';
+import {LogoTitle} from "./logo";
 
 export class QItem extends React.Component {
     render(): React.ReactNode {
@@ -93,7 +94,7 @@ export function mergeArray(b, a, getKey) {
 
 export class Home extends React.Component {
     static navigationOptions={
-        headerTitle:<Text>试题列表</Text>
+        title:'试题列表'
     }
     constructor(props) {
         super(props)
@@ -170,6 +171,13 @@ export class Home extends React.Component {
 }
 
 export class Detail extends React.Component{
+    static navigationOptions=({navigation})=>{
+        let item=navigation.getParam('item',{})
+        return {
+            headerTitle:<LogoTitle title={item.id+" "+item.name} />,
+
+        }
+    }
     render(): React.ReactNode {
         const item=this.props.navigation.getParam('item',{})
         return (
